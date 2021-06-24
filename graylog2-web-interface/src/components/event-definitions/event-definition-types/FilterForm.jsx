@@ -43,11 +43,6 @@ export const TIME_UNITS = ['HOURS', 'MINUTES', 'SECONDS'];
 const LOOKUP_PERMISSIONS = [
   'lookuptables:read',
 ];
-const PREVIEW_PERMISSIONS = [
-  'streams:read',
-  'extendedsearch:create',
-  'extendedsearch:use',
-];
 
 class FilterForm extends React.Component {
   formatStreamIds = lodash.memoize(
@@ -72,7 +67,7 @@ class FilterForm extends React.Component {
   _parseQuery = lodash.debounce((queryString) => {
     const { currentUser } = this.props;
 
-    if (!PermissionsMixin.isPermitted(currentUser.permissions, PREVIEW_PERMISSIONS)) {
+    if (!PermissionsMixin.isPermitted(currentUser.permissions, LOOKUP_PERMISSIONS)) {
       return;
     }
 
