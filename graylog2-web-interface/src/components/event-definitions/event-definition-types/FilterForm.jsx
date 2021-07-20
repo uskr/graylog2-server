@@ -31,7 +31,7 @@ import { naturalSortIgnoreCase } from 'util/SortUtils';
 import * as FormsUtils from 'util/FormsUtils';
 import CombinedProvider from 'injection/CombinedProvider';
 import { SearchMetadataActions } from 'views/stores/SearchMetadataStore';
-import PermissionsMixin from 'util/PermissionsMixin';
+import { isPermitted } from 'util/PermissionsMixin';
 
 import EditQueryParameterModal from '../event-definition-form/EditQueryParameterModal';
 import commonStyles from '../common/commonStyles.css';
@@ -137,7 +137,7 @@ class FilterForm extends React.Component {
   _userCanViewLookupTables = () => {
     const { currentUser } = this.props;
 
-    return PermissionsMixin.isPermitted(currentUser.permissions, LOOKUP_PERMISSIONS);
+    return isPermitted(currentUser.permissions, LOOKUP_PERMISSIONS);
   };
 
   _syncParamsWithQuery = (paramsInQuery) => {
@@ -216,7 +216,7 @@ class FilterForm extends React.Component {
   };
 
   renderQueryParameters = () => {
-    const { eventDefinition, onChange, lookupTables, validation, currentUser } = this.props;
+    const { eventDefinition, onChange, lookupTables, validation } = this.props;
     const { query_parameters: queryParameters } = eventDefinition.config;
 
     if (!this._userCanViewLookupTables()) {
